@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #5d3800;
+            min-height: 100vh;
+        }
+
+        .face {
+            background: #ffcd00;
+            width: 360px;
+            height: 360px;
+            border-radius: 50%;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .face:before {
+            content: '';
+            position: absolute;
+            background: #b57700;
+            top: 235px;
+            width: 190px;
+            height: 75px;
+            border-bottom-right-radius: 75px;
+            border-bottom-left-radius: 75px;
+            transition: 0.5s;
+        }
+
+        .face:hover:before {
+            top: 265px;
+            width: 150px;
+            height: 40px;
+            border-bottom-right-radius: 0px;
+            border-bottom-left-radius: 0px;
+        }
+
+        .eyes {
+            display: flex;
+            position: relative;
+            top: -60px;
+        }
+
+        .eyes .eye {
+            position: relative;
+            display: block;
+            width: 80px;
+            height: 80px;
+            background: #fff;
+            margin: 0 15px;
+            border-radius: 50%;
+        }
+
+        .eyes .eye::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translate(-50%, -50%);
+            background: #333;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+        }
+
+    </style>
+    <meta name="viewport" content="width=device-width,initial-scale=0.5">
+    <meta http-equiv="X-UA-Compatible" content="ie-edge">
+    <meta charset="UTF-8">
+    <title>MouseOver emoji Using JS</title>
+</head>
+
+<body>
+    <div class="face">
+        <div class="eyes">
+            <div class="eye"></div>
+            <div class="eye"></div>
+        </div>
+    </div>
+    <script>
+        document.querySelector('body').addEventListener('mousemove', eyeball);
+
+        function eyeball() {
+            var eye = document.querySelectorAll('.eye');
+
+            eye.forEach(function(eye) {
+                let x = (eye.getBoundingClientRect().left) + (eye.clientWidth / 2);
+                let y = (eye.getBoundingClientRect().top) + (eye.clientHeight / 2);
+                let radian = Math.atan2(event.pageX - x, event.pageY - y);
+                let rot = (radian * (180 / Math.PI) * -1) + 270;
+                eye.style.transform = "rotate(" + rot + "deg)";
+            })
+        }
+
+    </script>
+
+</body>
+
+</html>
